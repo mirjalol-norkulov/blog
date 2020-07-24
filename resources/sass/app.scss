@@ -1,0 +1,10 @@
+//
+
+$font-primary: 'Roboto';
+
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    font-family: $font-primary, sans-serif;
+}
