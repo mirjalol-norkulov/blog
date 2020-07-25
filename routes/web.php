@@ -13,4 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@home');
+Route::get('/', 'HomeController@home')->name('homepage');
+Route::get('/dashboard/login', 'Dashboard\Auth\LoginController@loginView')->name('dashboard.login-view');
+Route::post('/dashboard/login', 'Dashboard\Auth\LoginController@login')->name('dashboard.login');
+Route::post('/dashboard/logout', 'Dashboard\Auth\LoginController@logout')->name('dashboard.logout');
