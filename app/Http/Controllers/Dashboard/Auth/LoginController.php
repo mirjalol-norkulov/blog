@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard\Auth;
 
-use App\Http\Controllers\Controller;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
+use App\Models\Auth\User;
 
 /**
  * Class LoginController
@@ -36,6 +36,10 @@ class LoginController extends Controller
             return back()->withErrors([
                 'password' => ["invalid" => "Parol noto'g'ri kiritildi"]
             ]);
+        }
+
+        if (!$user->hasRole('admin')) {
+            return back()->withErrors(['error' => "Sizda ruxsat yo'q"]);
         }
 
         Auth::login($user, $request->get('remember', false));

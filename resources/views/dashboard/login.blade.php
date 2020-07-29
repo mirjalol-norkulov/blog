@@ -17,6 +17,9 @@
             <div class="card border-0 shadow-lg">
                 <div class="card-body">
                     <h3 class="card-title">Kirish</h3>
+                    @if($errors->has('error'))
+                        <p class="text-danger">{{ $errors->first('error') }}</p>
+                    @endif
                     <form action="{{ route('dashboard.login') }}" method="post">
                         @csrf
                         <div class="form-group">
