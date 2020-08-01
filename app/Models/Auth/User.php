@@ -4,6 +4,7 @@ namespace App\Models\Auth;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class User
@@ -57,15 +58,35 @@ class User extends Authenticatable
         return $this->roles()->where('name', $role)->exists();
     }
 
+
+    /**
+     * @param array $roles
+     * @return bool
+     */
+    public function hasAnyRole(array $roles): bool
+    {
+        return $this->roles()->whereIn('name', $roles)->count() > 0;
+    }
+
+    /**
+     * @param array $roles
+     * @return bool
+     */
+    public function hasAllRoles(array $roles): bool
+    {
+        return $this->roles()->whereIn('name', $roles)->count() == count($roles);
+    }
+
     /**
      * @param string $role
      * @return void
+     * @throws \Exception
      */
     public function attachRole(string $role): void
     {
         $role = Role::where('name', $role)->first();
         if (!$role) {
-            throw new \Exception('Role does not exists');
+            throw new \Exception('Role does not exist');
         }
 
         $this->roles()->attach($role->id);
@@ -75,14 +96,20 @@ class User extends Authenticatable
     /**
      * @param string $role
      * @return void
+     * @throws \Exception
      */
     public function detachRole(string $role): void
     {
         $role = Role::where('name', $role)->first();
         if (!$role) {
-            throw new \Exception('Role does not exists');
+            throw new \Exception('Role does not exist');
         }
 
         $this->roles()->detach($role->id);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }

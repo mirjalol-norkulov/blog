@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Auth;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class LoginController extends Controller
 {
     public function loginView()
     {
-        return view('dashboard.login');
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -51,6 +51,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('dashboard.login');
+        return redirect()->route('login');
     }
 }

@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@home')->name('homepage');
-Route::get('/dashboard/login', 'Dashboard\Auth\LoginController@loginView')->name('dashboard.login-view');
-Route::post('/dashboard/login', 'Dashboard\Auth\LoginController@login')->name('dashboard.login');
-Route::post('/dashboard/logout', 'Dashboard\Auth\LoginController@logout')->name('dashboard.logout');
+Route::get('/login', 'Auth\LoginController@loginView')->name('login-view');
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/register', 'Auth\RegisterController@registerView')->name('register-view');
+Route::post('/register', 'Auth\RegisterController@register')->name('register');

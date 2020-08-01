@@ -20,7 +20,7 @@
                     @if($errors->has('error'))
                         <p class="text-danger">{{ $errors->first('error') }}</p>
                     @endif
-                    <form action="{{ route('dashboard.login') }}" method="post">
+                    <form action="{{ route('login') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -58,6 +58,9 @@
                             </button>
                         </div>
                     </form>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <a href="{{ route('register-view') }}">Ro'yxatdan o'tish</a>
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@
                         {{ auth()->user()->name }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <form action="{{ route('dashboard.logout') }}" method="post">
+                        <form action="{{ route('logout') }}" method="post">
                             @csrf
                             <button class="dropdown-item" type="submit">
                                 Chiqish

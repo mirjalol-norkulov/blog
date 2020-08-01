@@ -10,13 +10,18 @@ class RoleMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @param $role
      * @return mixed
      */
-    public function handle($request, Closure $next, string $role)
+    public function handle($request, Closure $next, $role)
     {
-        if (!$request->user() || !$request->user()->hasRole($role)) {
+        $roles = is_array($role)
+            ? $role
+            : explode('|', $role);
+
+        if (!$request->user() || !$request->user()->hasAnyRole($roles)) {
             throw new AccessDeniedException('Sizda ruxsat mavjud emas');
         }
         return $next($request);

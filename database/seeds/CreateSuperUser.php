@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class CreateSuperUser extends Seeder
@@ -13,10 +14,13 @@ class CreateSuperUser extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'Mirjalol',
-            'email' => 'mirjalol2401@gmail.com',
-            'password' => Hash::make('123456')
-        ]);
+        DB::transaction(function () {
+            $user = User::create([
+                'name' => 'Mirjalol',
+                'email' => 'mirjalol2401@gmail.com',
+                'password' => Hash::make('123456')
+            ]);
+            $user->attachRole('admin');
+        });
     }
 }

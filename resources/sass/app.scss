@@ -1,10 +1,12 @@
 //
 
-$font-primary: 'Roboto';
+$font-primary: 'Montserrat';
+
 
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 
 body {
     font-family: $font-primary, sans-serif;
+    color: $dark;
 }
