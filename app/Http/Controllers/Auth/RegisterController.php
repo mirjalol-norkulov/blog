@@ -23,9 +23,12 @@ class RegisterController extends Controller
 
     /**
      * @param RegisterRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function register(RegisterRequest $request)
     {
         $user = User::create($request->only(['name', 'email', 'password']));
+        $user->attachRole('user');
+        return redirect()->route('homepage');
     }
 }

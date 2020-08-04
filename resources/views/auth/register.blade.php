@@ -25,6 +25,7 @@
                                     name="name"
                                     placeholder="Ismingiz"
                                     value="{{ old('name') }}"
+                                    required
                                 >
                                 @if($errors->has('name'))
                                     <div class="invalid-feedback">
@@ -38,7 +39,8 @@
                                     class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
                                     id="email" name="email"
                                     placeholder="Email manzilingiz"
-                                    value="{{ old('email') }}">
+                                    value="{{ old('email') }}"
+                                    required>
                                 @if($errors->has('email'))
                                     <div class="invalid-feedback">
                                         {{ $errors->first('email') }}
@@ -50,7 +52,8 @@
                                     type="password"
                                     class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
                                     id="password" name="password"
-                                    placeholder="Parol">
+                                    placeholder="Parol"
+                                    required>
 
                                 @if($errors->has('password'))
                                     <div class="invalid-feedback">
@@ -64,7 +67,8 @@
                                     class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
                                     id="password_confirmation"
                                     name="password_confirmation"
-                                    placeholder="Parol qaytadan">
+                                    placeholder="Parol qaytadan"
+                                    required>
 
                                 @if($errors->has('password_confirmation'))
                                     <div class="invalid-feedback">
@@ -79,6 +83,7 @@
                                     class="custom-control-input {{ $errors->has('agree') ? 'is-invalid' : '' }}"
                                     id="agree"
                                     name="agree"
+                                    required
                                     {{ old("agree") ? "checked" : "" }}>
                                 <label class="custom-control-label" for="agree">
                                     Men foydalanish shartlaridagi barcha

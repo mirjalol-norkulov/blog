@@ -81,90 +81,45 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass/auth/register.scss":
-/*!*******************************************!*\
-  !*** ./resources/sass/auth/register.scss ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass/blog.scss":
-/*!**********************************!*\
-  !*** ./resources/sass/blog.scss ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass/dashboard/dashboard.scss":
-/*!*************************************************!*\
-  !*** ./resources/sass/dashboard/dashboard.scss ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass/dashboard/login.scss":
+/***/ "./resources/js/dashboard/dashboard.js":
 /*!*********************************************!*\
-  !*** ./resources/sass/dashboard/login.scss ***!
+  !*** ./resources/js/dashboard/dashboard.js ***!
   \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+(function ($) {
+  "use strict"; // Add active state to sidbar nav links
+
+  var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
+
+  $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
+    if (this.href === path) {
+      $(this).addClass("active");
+    }
+  }); // Toggle the side navigation
+
+  $("#sidebarToggle").on("click", function (e) {
+    e.preventDefault();
+    $("body").toggleClass("sb-sidenav-toggled");
+  });
+})(jQuery);
 
 /***/ }),
 
-/***/ 0:
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/blog.scss ./resources/sass/dashboard/login.scss ./resources/sass/auth/register.scss ./resources/sass/dashboard/dashboard.scss ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ 1:
+/*!***************************************************!*\
+  !*** multi ./resources/js/dashboard/dashboard.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Mirjalol-PC\PhpstormProjects\blog\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\Mirjalol-PC\PhpstormProjects\blog\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! C:\Users\Mirjalol-PC\PhpstormProjects\blog\resources\sass\blog.scss */"./resources/sass/blog.scss");
-__webpack_require__(/*! C:\Users\Mirjalol-PC\PhpstormProjects\blog\resources\sass\dashboard\login.scss */"./resources/sass/dashboard/login.scss");
-__webpack_require__(/*! C:\Users\Mirjalol-PC\PhpstormProjects\blog\resources\sass\auth\register.scss */"./resources/sass/auth/register.scss");
-module.exports = __webpack_require__(/*! C:\Users\Mirjalol-PC\PhpstormProjects\blog\resources\sass\dashboard\dashboard.scss */"./resources/sass/dashboard/dashboard.scss");
+module.exports = __webpack_require__(/*! C:\Users\Mirjalol-PC\PhpstormProjects\blog\resources\js\dashboard\dashboard.js */"./resources/js/dashboard/dashboard.js");
 
 
 /***/ })

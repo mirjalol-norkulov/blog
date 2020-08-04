@@ -31,4 +31,21 @@ class RegisterRequest extends FormRequest
             'agree' => 'required|accepted'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Ismni kiritish majburiy.',
+            'name.max' => "Ism 255 ta belgidan kam bo'lishi lozim.",
+            'email.required' => "Emailni kiritish majburiy.",
+            'email.email' => "Emailni to'g'ri formatda kiriting.",
+            'email.unique' => "Bunday email manzilli foydalanuvchi mavjud.",
+            'password.required' => "Parolni kiritish majburiy.",
+            'password.min' => "Parol kamida 6 ta beligan iborat bo'lishi lozim.",
+            'password_confirmation.required' => "Parolni tasdiqlang",
+            'password_confirmation.same' => "Parollar bir biriga mos kelmaydi",
+            'agree.required' => "Foydalanish shartlariga rozi bo'ling",
+            'agree.accepted' => "Foydalanish shartlariga rozi bo'ling"
+        ];
+    }
 }
