@@ -10,15 +10,39 @@
             <div class="col">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between">
-                        <div>
-                            Foydalanuvchilar
+                        <div class="d-flex align-items-center">
+                            <span class="mr-2">Foydalanuvchilar</span>
+                            <form action="{{ route('dashboard.users.index') }}" method="get">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="q"
+                                    placeholder="Qidiruv..."
+                                    value="{{ $query }}">
+                            </form>
                         </div>
-                        <a href="#">
+                        <a href="{{ route('dashboard.users.create') }}">
                             <i class="fas fa-user-plus"></i>
                         </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
+                            @if(session()->has('user.deleted'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session()->get('user.deleted') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+                            @if(session()->has('user.created'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session()->get('user.created') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
@@ -50,11 +74,14 @@
                                         <td>{{ $user->roles->pluck('display_name')->join(' | ') }}</td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <a href="#">
+                                                <a href="{{ route('dashboard.users.edit-view', ['id' => $user->id]) }}">
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                                 @if(!$user->roles->pluck('name')->contains('admin'))
-                                                    <form action="#">
+                                                    <form
+                                                        action="{{ route('dashboard.users.delete', ['id' => $user->id]) }}"
+                                                        method="post">
+                                                        @csrf
                                                         <button class="btn btn-link">
                                                             <i class="far fa-trash-alt"></i>
                                                         </button>

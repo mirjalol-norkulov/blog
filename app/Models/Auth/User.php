@@ -92,6 +92,12 @@ class User extends Authenticatable
         $this->roles()->attach($role->id);
     }
 
+    public function attachRoles(array $roles): void
+    {
+        $roles = Role::whereIn('name', $roles)->get();
+        $this->roles()->attach($roles->pluck('id')->toArray());
+    }
+
 
     /**
      * @param string $role

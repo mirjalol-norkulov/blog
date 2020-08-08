@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
@@ -22,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps(); // created_at | updated_at
         });
+
+        DB::statement('ALTER TABLE users ADD FULLTEXT fulltext_index (name, email)');
     }
 
     /**
@@ -31,6 +34,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('role_user');
         Schema::dropIfExists('users');
     }
 }
