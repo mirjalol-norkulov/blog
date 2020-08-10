@@ -19,10 +19,14 @@ class UsersController extends Controller
         $users = User::with('roles');
 
         if ($query) {
-            $users = $users->whereRaw("MATCH(name, email) AGAINST(?)", $query);
+            $users = $users->search($query);
         }
 
         $users = $users->paginate(10);
+
+        if ($request->isXmlHttpRequest()) {
+            return $users;
+        }
 
         return view('dashboard.users.users', compact('users', 'query'));
     }
@@ -66,6 +70,11 @@ class UsersController extends Controller
     {
         User::destroy($id);
         $request->session()->flash('user.deleted', 'Foydalanuvchi o\'chirildi');
+        if ($request->isXmlHttpRequest()) {
+            return [
+                'success' => true
+            ];
+        }
         return back();
     }
 }

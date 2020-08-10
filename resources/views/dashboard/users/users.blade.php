@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container mt-2">
+    <div class="container mt-2" id="users-app">
         <div class="row">
             <div class="col">
                 <div class="card mb-4">
@@ -15,10 +15,12 @@
                             <form action="{{ route('dashboard.users.index') }}" method="get">
                                 <input
                                     type="text"
+                                    v-model="searchText"
                                     class="form-control"
                                     name="q"
                                     placeholder="Qidiruv..."
-                                    value="{{ $query }}">
+                                    v-debounce:300ms="handleInput"
+                                >
                             </form>
                         </div>
                         <a href="{{ route('dashboard.users.create') }}">
@@ -64,33 +66,30 @@
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($users as $user)
-                                    <tr>
-                                        <td>
-                                            {{ ($users->currentPage() - 1) * $users->perPage() + $loop->index + 1  }}
-                                        </td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->roles->pluck('display_name')->join(' | ') }}</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{ route('dashboard.users.edit-view', ['id' => $user->id]) }}">
-                                                    <i class="far fa-edit"></i>
-                                                </a>
-                                                @if(!$user->roles->pluck('name')->contains('admin'))
-                                                    <form
-                                                        action="{{ route('dashboard.users.delete', ['id' => $user->id]) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        <button class="btn btn-link">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                <tr v-for="(user, i) in users.data">
+                                    <td>
+                                        @{{ getIndex(i) }}
+                                    </td>
+                                    <td>@{{ user.name }}</td>
+                                    <td>@{{ user.email }}</td>
+                                    <td>@{{ getRoleNames(user) }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a :href="`/dashboard/users/${user.id}/edit`" class="btn">
+                                                <i class="far fa-edit"></i>
+                                            </a>
+                                            <form
+                                                :action="`/dashboard/users/${user.id}`"
+                                                method="post"
+                                                @submit.prevent="handleDelete(user)">
+                                                @csrf
+                                                <button class="btn btn-sm btn-danger">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-end">{{ $users->links() }}</div>
@@ -104,8 +103,7 @@
 
 @section('foot')
     <script>
-        // $(document).ready(function () {
-        //     $('#dataTable').DataTable();
-        // });
+        window.users = JSON.parse(`{!! json_encode($users) !!}`)
     </script>
+    <script src="{{ asset('js/dashboard/users/users.js') }}"></script>
 @endsection

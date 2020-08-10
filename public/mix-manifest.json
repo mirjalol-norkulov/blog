@@ -5,5 +5,6 @@
     "/css/dashboard/login.css": "/css/dashboard/login.css",
     "/css/auth/register.css": "/css/auth/register.css",
     "/css/dashboard/dashboard.css": "/css/dashboard/dashboard.css",
-    "/js/dashboard/dashboard.js": "/js/dashboard/dashboard.js"
+    "/js/dashboard/dashboard.js": "/js/dashboard/dashboard.js",
+    "/js/dashboard/users/users.js": "/js/dashboard/users/users.js"
 }
