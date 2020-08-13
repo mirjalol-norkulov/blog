@@ -104,6 +104,7 @@
 @section('foot')
     <script>
         window.users = JSON.parse(`{!! json_encode($users) !!}`)
+        window.query = `{{$query}}`
     </script>
     <script src="{{ asset('js/dashboard/users/users.js') }}"></script>
 @endsection

@@ -16,14 +16,11 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $query = $request->query->get('q');
-        $users = User::with('roles');
+        $users = User::search($query);
 
-        if ($query) {
-            $users = $users->search($query);
-        }
 
-        $users = $users->paginate(10);
-
+        $users = $users->paginate(config('pagination.users.per_page'));
+        $users->load('roles');
         if ($request->isXmlHttpRequest()) {
             return $users;
         }

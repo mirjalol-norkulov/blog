@@ -15206,7 +15206,13 @@ new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#users-app',
   data: {
     users: window.users,
-    searchText: ''
+    searchText: window.query || ''
+  },
+  mounted: function mounted() {// const pageItems = document.querySelectorAll('.page-item');
+    // console.log(pageItems);
+    // pageItems.forEach(pageItem => {
+    //     pageItem.addEventListener('click', this.onPageItemClick)
+    // })
   },
   methods: {
     getIndex: function getIndex(i) {
@@ -15274,6 +15280,99 @@ new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
             }
           }
         }, _callee2);
+      }))();
+    },
+    fetchData: function fetchData(url) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var _yield$axios$get, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url);
+
+              case 2:
+                _yield$axios$get = _context3.sent;
+                data = _yield$axios$get.data;
+                _this3.users = data;
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    onPageItemClick: function onPageItemClick(event) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var textContent, isPrevious, isNext, activeItem, currentItem;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                event.preventDefault();
+                textContent = event.target.textContent;
+                isPrevious = textContent === '‹';
+                isNext = textContent === '›';
+                activeItem = document.querySelector('.page-item.active');
+
+                if (!isPrevious) {
+                  _context4.next = 14;
+                  break;
+                }
+
+                _context4.next = 8;
+                return _this4.fetchData(_this4.users.prev_page_url);
+
+              case 8:
+                activeItem.classList.remove('active');
+                activeItem.removeAttribute('aria-current');
+                event.target.classList.add('active');
+                event.target.setAttribute('aria-current', 'page');
+                _context4.next = 30;
+                break;
+
+              case 14:
+                if (!isNext) {
+                  _context4.next = 23;
+                  break;
+                }
+
+                _context4.next = 17;
+                return _this4.fetchData(_this4.users.next_page_url);
+
+              case 17:
+                activeItem.classList.remove('active');
+                activeItem.removeAttribute('aria-current');
+                event.target.classList.add('active');
+                event.target.setAttribute('aria-current', 'page');
+                _context4.next = 30;
+                break;
+
+              case 23:
+                _context4.next = 25;
+                return _this4.fetchData("/dashboard/users?page=".concat(textContent));
+
+              case 25:
+                activeItem.classList.remove('active');
+                activeItem.removeAttribute('aria-current');
+                currentItem = event.target.closest('.page-item');
+                currentItem.classList.add('active');
+                currentItem.setAttribute('aria-current', 'page');
+
+              case 30:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     }
   }

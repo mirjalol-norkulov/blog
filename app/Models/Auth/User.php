@@ -2,10 +2,10 @@
 
 namespace App\Models\Auth;
 
-use App\Traits\Searchable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Scout\Searchable;
 
 /**
  * Class User
@@ -16,10 +16,19 @@ class User extends Authenticatable
     use Notifiable;
     use Searchable;
 
+    public $asYouType = true;
+
     /**
-     * @var array
+     * @return array
      */
-    public $searchableFields = ['name', 'email'];
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email
+        ];
+    }
 
     /**
      * The attributes that are mass assignable.
